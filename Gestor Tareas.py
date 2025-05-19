@@ -98,6 +98,7 @@ def revisar_correo_existente(lista_usuarios, correo):
 def revisar_correo(lista_usuarios,opcion):
     """
     El usuario ingresa su correo y la funcion anterior evalua si ya existe
+    (lista_usuarios: list, opcion:int) -> correo_usuario: str
     """
     correo_usuario = str(input('Ingresa tu correo: '))
     #Cuando se quiere verificar que el correo ya exista
@@ -170,21 +171,32 @@ def registrar_nuevo_usuario(lista_usuarios, lista_ids_usuarios):
 
 #FUNCIONES PARA CREAR TAREAS
 def fecha_ingresada_posible(fecha_ingresada):
+    """
+    Revisar si la fecha ingresada es posible
+    (fecha_ingresada: str) -> Bool
+    """
+    #Revisa longitud del str
     if len(fecha_ingresada) < 10 or len(fecha_ingresada) > 10:
         return False
     
+    #Revisa el espaciado entre fecha
     if fecha_ingresada[4] != "-" or fecha_ingresada[7] != "-":
         return False
     
     fecha_tarea = datetime.strptime(fecha_ingresada, "%Y-%m-%d")
     fecha_hoy = datetime.strptime(str(date.today()), "%Y-%m-%d")
 
+    #Revisa si la fecha ingresada es posterior a hoy
     if fecha_hoy >= fecha_tarea:
         return False
     else:
         return True
 
 def configurar_tarea(lista_ids_tareas):
+    """
+    Establecer la informacion restante de la tarea: id, descripcion, estado y fecha limite
+    (lista_ids_tareas: list) -> id_tarea: str, descripcion_tarea: str, estado_tarea: str, fecha_limite: str
+    """
     ESTADOS_TAREA = ["To-Do", "In-Progress", "Pending", "Done"]
     
     #ID_TAREA
